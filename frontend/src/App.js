@@ -7,19 +7,19 @@ const App = () => {
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:4000/tasks')
+    axios.get(`${process.env.REACT_APP_API_URL}/tasks`)
       .then(response => setTasks(response.data))
       .catch(error => console.error('Error fetching tasks:', error));
   }, []);
 
   const addTask = (task) => {
-    axios.post('http://localhost:4000/tasks', task)
+    axios.post(`${process.env.REACT_APP_API_URL}/tasks`, task)
       .then(response => setTasks([...tasks, response.data]))
       .catch(error => console.error('Error adding task:', error));
   };
 
   const deleteTask = (id) => {
-    axios.delete(`http://localhost:4000/tasks/${id}`)
+    axios.delete(`${process.env.REACT_APP_API_URL}/tasks/${id}`)
       .then(() => setTasks(tasks.filter(task => task.id !== id)))
       .catch(error => console.error('Error deleting task:', error));
   };
@@ -34,3 +34,4 @@ const App = () => {
 };
 
 export default App;
+
